@@ -11,9 +11,11 @@ import cv2
 from matplotlib import pyplot as plt
 import yaml
 
+# TODO: add noise to beam images
+
 #DATASET_PATH = r'\\srvditz1\lac\Studenten\AE_VoE_Stud\Sven Burckhard\Small_Other_Datasets\Dataset_Ditzingen_Gaussain_Mini_512'
 #DATASET_PATH = r'C:\Users\burckhardsv\Lokale_Dateien\Dataset\Test_Dataset_Vortex_extra_small'
-DATASET_PATH = r'\\srvditz1\lac\Studenten\AE_VoE_Stud\Sven Burckhard\Schramberg\Schramberg_Vortex\Dataset_512_vortex_cleaned_Schramberg_Test'
+DATASET_PATH = r'/kaggle/input/jikai-wang-test/unwrapped_simulated_test'
 
 ###################################################### Do not touch #############################################################################
 PATH_TO_STORE_RESULTS = 'results_hyperparameter_optimization'
@@ -25,7 +27,7 @@ def load_hyperparameters(filepath):
         hyperparameters = yaml.safe_load(file)
     return hyperparameters
 
-filepath = 'config.yaml'
+filepath = '/kaggle/working/experimental_sven/Autoencoder/config.yaml'
 hyperparams = load_hyperparameters(filepath)
 
 
@@ -88,7 +90,7 @@ if MODUS==0:
     script_started_at = time.time()
     TIMESTAMP = str(datetime.datetime.now()).replace(':', '-').replace('.', '-').replace(' ', '_')
     path_to_store_results = f'{PATH_TO_STORE_RESULTS}/{TIMESTAMP}'
-    os.mkdir(path_to_store_results)
+    os.makedirs(path_to_store_results)
 
     with open(f'{path_to_store_results}/configurations.txt', 'w') as f:
         f.write(f'dataset = {DATASET_PATH}\n\n' + str([config for config in enumerate(configurations)]))
