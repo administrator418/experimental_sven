@@ -1,0 +1,25 @@
+python==3.10.11
+pandas==2.2.1
+tensorflow==2.11.0
+numpy==1.26.4
+cv2==4.9.0
+matplotlib==3.8.3
+yaml==6.0.1
+Pillow==10.2.0
+
+
+
+# Python: 3.10.11
+# os: (built-in or no version)
+# time: (built-in or no version)
+# pandas: 2.2.1
+# datetime: (built-in or no version)
+# tensorflow: 2.11.0
+# numpy: 1.26.4
+# shutil: (built-in or no version)
+# math: (built-in or no version)
+# sys: (built-in or no version)
+# cv2: 4.9.0
+# matplotlib: 3.8.3
+# yaml: 6.0.1
+# Pillow: 10.2.0
