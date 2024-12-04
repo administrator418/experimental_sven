@@ -11,6 +11,8 @@ import cv2
 from matplotlib import pyplot as plt
 import yaml
 
+from experimental_sven.sonam.GAN_hyperparameter_tuning_20000img_Sonam_Code import PATH_TO_STORE_RESULTS
+
 # TODO: add noise to beam images
 
 #DATASET_PATH = r'\\srvditz1\lac\Studenten\AE_VoE_Stud\Sven Burckhard\Small_Other_Datasets\Dataset_Ditzingen_Gaussain_Mini_512'
@@ -18,8 +20,9 @@ import yaml
 DATASET_PATH = r'/kaggle/input/jikai-wang-test/unwrapped_simulated_test'
 
 ###################################################### Do not touch #############################################################################
-PATH_TO_STORE_RESULTS = 'results_hyperparameter_optimization'
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # "0" for using GPU:0, "" for "GPU:1", "0,1" for both
+# PATH_TO_STORE_RESULTS = 'results_hyperparameter_optimization'
+PATH_TO_STORE_RESULTS =  '/kaggle/working/experimental_sven/results_hyperparameter_optimization'
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # "0" for using GPU:0, "1" for GPU:1, "0,1" for both
 
 ########################################################### Configuration ########################################################
 def load_hyperparameters(filepath):
