@@ -53,10 +53,12 @@ EVALUATION_METHOD = hyperparams['EVALUATION_METHOD']
 STRIDES = hyperparams['STRIDES']
 PADDING = hyperparams['PADDING']
 
+i=1
+
 ##########################################################################################################
 configurations = []
 
-for batch_size in range(N_EPOCHS):
+for batch_size in [1]:
     for learning_rate, beta_1 in [(2e-4, 0.5),(1e-4, 0.5),(2e-4, 0.9)]: # [(2e-4, 0.5), (1e-5, 0.5),(2e-4, 0.9),(1e-5, 0.9)]:
         for use_bias_term in [True]:
             for use_l2_loss in [True]: # only MSE before [False,True]
@@ -282,7 +284,6 @@ def autoencoder_split_256x256(configuration):
     x = last(x)
     return tf.keras.Model(inputs=inputs, outputs=x)
 
-
 def autoencoder_256x256(configuration):
     inputs = tf.keras.layers.Input(shape=[256, 256, 2])
     #print("Test", inputs.shape)
@@ -462,8 +463,6 @@ def autoencoder_64x64(configuration):
     # print(inputs.shape)
     return tf.keras.Model(inputs=inputs, outputs=x)
 
-
-
 def Autoencoder(MODEL_NUMBER, configuration):
     if  MODEL_NUMBER==1:
         return autoencoder_split_256x256(configuration)
@@ -637,9 +636,6 @@ def generate_images(epoch, autoencoder, val_dataset_to_plot,training=True):
                 plt.close('all')
             else:
                 pass
-
-                
-            
 
 def evaluate(autoencoder, val_dataset,configuration, training=True):
     autoencoder_loss_sum = 0
