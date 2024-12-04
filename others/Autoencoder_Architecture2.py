@@ -10,7 +10,7 @@ import cv2
 from matplotlib import pyplot as plt
 import yaml
 
-DATASET_PATH = r'/content/unwrapped_simulated_noise/Dataset_Gauss_Simulated_Unwrapped'
+DATASET_PATH = r'/content/unwrapped_simulated_noise/Dataset_Vortex_Simulated_Unwrapped'
 
 ###################################################### Do not touch #############################################################################
 PATH_TO_STORE_RESULTS = '/content/experimental_sven/others/results_hyperparameter_optimization'
@@ -949,8 +949,8 @@ if __name__ == "__main__":
 
         # autoencoder_loss_train = history['autoencoder_loss']['train'][best_idx_train]
         # autoencoder_loss_val = history['autoencoder_loss']['val'][best_idx_val]
-        # autoencoder_total_loss_test = final_test_performance['autoencoder_loss'] 
-        # autoencoder_total_loss_test_without_dropout = final_test_performance_without_dropout['autoencoder_loss'] 
+        # autoencoder_total_loss_test = final_test_performance['autoencoder_loss']
+        # autoencoder_total_loss_test_without_dropout = final_test_performance_without_dropout['autoencoder_loss']
         l1_loss_train = history['l1_loss']['train'][best_idx_train]
         l1_loss_val = history['l1_loss']['val'][best_idx_val]
         l1_loss_test = final_test_performance['l1_loss']

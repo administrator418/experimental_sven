@@ -1,8 +1,10 @@
-#adding gaussian noise to the image
+# adding gaussian noise to the image
+import os
+from concurrent.futures import ThreadPoolExecutor
+
 import cv2
 import numpy as np
-import os
-from concurrent.futures import ThreadPoolExecutor, as_completed
+
 
 def add_gaussian_noise(image_in, noise_sigma):
     temp_image = np.float64(np.copy(image_in))
@@ -13,9 +15,9 @@ def add_gaussian_noise(image_in, noise_sigma):
     if len(temp_image.shape) == 2:
         noisy_image = temp_image + noise
     else:
-        noisy_image[:,:,0] = temp_image[:,:,0] + noise
-        noisy_image[:,:,1] = temp_image[:,:,1] + noise
-        noisy_image[:,:,2] = temp_image[:,:,2] + noise
+        noisy_image[:, :, 0] = temp_image[:, :, 0] + noise
+        noisy_image[:, :, 1] = temp_image[:, :, 1] + noise
+        noisy_image[:, :, 2] = temp_image[:, :, 2] + noise
     """
     Debugging
     print('min,max = ', np.min(noisy_image), np.max(noisy_image))
@@ -23,10 +25,12 @@ def add_gaussian_noise(image_in, noise_sigma):
     """
     return noisy_image
 
+
 def process_image(file_path, output_path, noise_sigma):
     img = cv2.imread(file_path)
     noise_img = add_gaussian_noise(img, noise_sigma)
     cv2.imwrite(output_path, noise_img)
+
 
 # Folder with raw data
 input_folder = r"/Users/jayden/Documents/Jikai_Wang/unwrapped_simulated"
@@ -39,17 +43,15 @@ output_folder = r"/Users/jayden/Documents/Jikai_Wang/unwrapped_simulated_noise"
     """
 noise_sigma = 0.16
 
-# Store image paths
+# Add origin images path and noisy images path
 input_files = []
 output_files = []
-
-# Add origin images path and noisy images path
 for subset, _, _ in os.walk(input_folder):
     if 'beam_ff' in subset or 'beam_nf' in subset:
         for filename in os.listdir(subset):
             input_files.append(os.path.join(subset, filename))
             output_files.append(os.path.join(subset.replace('unwrapped_simulated', 'unwrapped_simulated_noise'),
-                                              filename))
+                                             filename))
 
 # Make directories
 for dir1 in ['Dataset_Gausssian_Sinulated_Unwrapped', 'Dataset_Vortex_Simulated_Unwrapped']:
