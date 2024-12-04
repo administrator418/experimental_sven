@@ -870,7 +870,7 @@ if __name__ == "__main__":
         # reset model to best-performing state
         best_idx_val = np.argmin(history['autoencoder_loss']['val'])
         best_epoch = history['epochs']['val'][best_idx_val]
-        path_to_best_weights = f'{path_to_store_results}/{timestamp}/checkpoints/MODEL/epoch_{best_epoch}'
+        path_to_best_weights = f'{path_to_store_results}/{timestamp}/checkpoints/MODEL/epoch_{best_epoch}.weights.h5'
         autoencoder.load_weights(path_to_best_weights.replace('MODEL', 'autoencoder'))
 
 
