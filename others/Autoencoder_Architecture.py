@@ -11,8 +11,6 @@ import cv2
 from matplotlib import pyplot as plt
 import yaml
 
-from experimental_sven.sonam.GAN_hyperparameter_tuning_20000img_Sonam_Code import PATH_TO_STORE_RESULTS
-
 # TODO: add noise to beam images
 
 #DATASET_PATH = r'\\srvditz1\lac\Studenten\AE_VoE_Stud\Sven Burckhard\Small_Other_Datasets\Dataset_Ditzingen_Gaussain_Mini_512'
