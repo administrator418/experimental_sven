@@ -53,12 +53,10 @@ EVALUATION_METHOD = hyperparams['EVALUATION_METHOD']
 STRIDES = hyperparams['STRIDES']
 PADDING = hyperparams['PADDING']
 
-i=1
-
 ##########################################################################################################
 configurations = []
 
-for batch_size in [1]:
+for batch_size in range(N_EPOCHS):
     for learning_rate, beta_1 in [(2e-4, 0.5),(1e-4, 0.5),(2e-4, 0.9)]: # [(2e-4, 0.5), (1e-5, 0.5),(2e-4, 0.9),(1e-5, 0.9)]:
         for use_bias_term in [True]:
             for use_l2_loss in [True]: # only MSE before [False,True]
