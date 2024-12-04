@@ -696,6 +696,7 @@ def save_weights(epoch, autoencoder, delete_previous=False):
         except:
             pass  
 
+    os.makedirs(f'{path_to_store_results}/{timestamp}/checkpoints/autoencoder', exist_ok=True)
     autoencoder.save_weights(f'{path_to_store_results}/{timestamp}/checkpoints/autoencoder/epoch_{epoch}.weights.h5')
 
 #################################################################Training_Loop########################################################
