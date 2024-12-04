@@ -1,13 +1,8 @@
-#adding gaussian noise to the image 
+#adding gaussian noise to the image
 import cv2
 import numpy as np
-import cv2
 import os
-import glob
-import skimage
-import numpy as np
-import matplotlib.pyplot as plt
-import math
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 def add_gaussian_noise(image_in, noise_sigma):
     temp_image = np.float64(np.copy(image_in))
@@ -28,9 +23,14 @@ def add_gaussian_noise(image_in, noise_sigma):
     """
     return noisy_image
 
+def process_image(file_path, output_path, noise_sigma):
+    img = cv2.imread(file_path)
+    noise_img = add_gaussian_noise(img, noise_sigma)
+    cv2.imwrite(output_path, noise_img)
+
 # Folder with raw data
-input_folder = r"\\srvditz1\lac\Studenten\AE_VoE_Stud\Sven Burckhard\Datasets\Simulativ\Raw_Data_Gauusian_Intensity_Beam_Test"
-output_folder = r"\\srvditz1\lac\Studenten\AE_VoE_Stud\Sven Burckhard\Datasets\Simulativ\Raw_Data_Gauusian_Intensity_Beam_Noise_Sigma028"
+input_folder = r"/Users/jayden/Documents/Jikai_Wang/unwrapped_simulated"
+output_folder = r"/Users/jayden/Documents/Jikai_Wang/unwrapped_simulated_noise"
 
 # Define the noise sigma
 """ Labor sigma = 0.14
@@ -39,12 +39,26 @@ output_folder = r"\\srvditz1\lac\Studenten\AE_VoE_Stud\Sven Burckhard\Datasets\S
     """
 noise_sigma = 0.16
 
-for filename in os.listdir(input_folder):
-    if filename.endswith(".png"):
-        file_path = os.path.join(input_folder, filename)
-        img = cv2.imread(file_path)
-        noise_img = add_gaussian_noise(img, noise_sigma=noise_sigma)
-        output_file_path = os.path.join(output_folder, filename)
-        cv2.imwrite(output_file_path, noise_img)
+# Prepare file paths
+input_files = []
+output_files = []
+
+for subset, _, _ in os.walk(input_folder):
+    if 'beam_ff' in subset or 'beam_nf' in subset:
+        for filename in os.listdir(subset):
+            input_files.append(os.path.join(subset, filename))
+            output_files.append(os.path.join(subset.replace('unwrapped_simulated', 'unwrapped_simulated_noise'),
+                                              filename))
+
+# Make directories
+for dir1 in ['Dataset_Gausssian_Sinulated_Unwrapped', 'Dataset_Vortex_Simulated_Unwrapped']:
+    for dir2 in ['train', 'val', 'test']:
+        for dir3 in ['beam_ff', 'beam_nf']:
+            os.makedirs(f"{output_folder}/{dir1}/{dir2}/{dir3}", exist_ok=True)
+
+# Create a ThreadPoolExecutor to process images in parallel
+with ThreadPoolExecutor() as executor:
+    for input_file, output_file in zip(input_files, output_files):
+        executor.submit(process_image, input_file, output_file, noise_sigma)
 
 print("All images have been processed and saved.")
