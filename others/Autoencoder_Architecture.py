@@ -19,7 +19,7 @@ DATASET_PATH = r'/kaggle/input/jikai-wang-test/unwrapped_simulated_test'
 
 ###################################################### Do not touch #############################################################################
 # PATH_TO_STORE_RESULTS = 'results_hyperparameter_optimization'
-PATH_TO_STORE_RESULTS =  '/kaggle/working/experimental_sven/results_hyperparameter_optimization'
+PATH_TO_STORE_RESULTS =  '/kaggle/working/experimental_sven/others/results_hyperparameter_optimization'
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # "0" for using GPU:0, "1" for GPU:1, "0,1" for both
 
 ########################################################### Configuration ########################################################
