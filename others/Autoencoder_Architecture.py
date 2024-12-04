@@ -15,7 +15,7 @@ import yaml
 
 #DATASET_PATH = r'\\srvditz1\lac\Studenten\AE_VoE_Stud\Sven Burckhard\Small_Other_Datasets\Dataset_Ditzingen_Gaussain_Mini_512'
 #DATASET_PATH = r'C:\Users\burckhardsv\Lokale_Dateien\Dataset\Test_Dataset_Vortex_extra_small'
-DATASET_PATH = r'/content/unwrapped_simulated/Dataset_Vortex_Simulated_Unwrapped'
+DATASET_PATH = r'/content/unwrapped_simulated_test'
 
 ###################################################### Do not touch #############################################################################
 # PATH_TO_STORE_RESULTS = 'results_hyperparameter_optimization'
