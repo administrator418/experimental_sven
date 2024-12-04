@@ -39,7 +39,7 @@ output_folder = r"/Users/jayden/Documents/Jikai_Wang/unwrapped_simulated_noise"
     """
 noise_sigma = 0.16
 
-# Prepare file paths
+# Store image paths
 input_files = []
 output_files = []
 
