@@ -15,11 +15,11 @@ import yaml
 
 #DATASET_PATH = r'\\srvditz1\lac\Studenten\AE_VoE_Stud\Sven Burckhard\Small_Other_Datasets\Dataset_Ditzingen_Gaussain_Mini_512'
 #DATASET_PATH = r'C:\Users\burckhardsv\Lokale_Dateien\Dataset\Test_Dataset_Vortex_extra_small'
-DATASET_PATH = r'/kaggle/input/jikai-wang/unwrapped_simulated/Dataset_Gausssian_Sinulated_Unwrapped'
+DATASET_PATH = r'/content/unwrapped_simulated_test'
 
 ###################################################### Do not touch #############################################################################
 # PATH_TO_STORE_RESULTS = 'results_hyperparameter_optimization'
-PATH_TO_STORE_RESULTS =  '/kaggle/working/experimental_sven/others/results_hyperparameter_optimization'
+PATH_TO_STORE_RESULTS =  '/content/experimental_sven/others/results_hyperparameter_optimization'
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # "0" for using GPU:0, "1" for GPU:1, "0,1" for both
 
 ########################################################### Configuration ########################################################
@@ -28,7 +28,7 @@ def load_hyperparameters(filepath):
         hyperparameters = yaml.safe_load(file)
     return hyperparameters
 
-filepath = '/kaggle/working/experimental_sven/Autoencoder/config.yaml'
+filepath = '/content/experimental_sven/Autoencoder/config.yaml'
 hyperparams = load_hyperparameters(filepath)
 
 
