@@ -11,8 +11,6 @@ import cv2
 from matplotlib import pyplot as plt
 import yaml
 
-# TODO: add noise to beam images
-
 #DATASET_PATH = r'\\srvditz1\lac\Studenten\AE_VoE_Stud\Sven Burckhard\Small_Other_Datasets\Dataset_Ditzingen_Gaussain_Mini_512'
 #DATASET_PATH = r'C:\Users\burckhardsv\Lokale_Dateien\Dataset\Test_Dataset_Vortex_extra_small'
 DATASET_PATH = r'/content/unwrapped_simulated_test'
@@ -52,8 +50,6 @@ BEST_CONFIGURATION = hyperparams['BEST_CONFIGURATION']
 EVALUATION_METHOD = hyperparams['EVALUATION_METHOD']
 STRIDES = hyperparams['STRIDES']
 PADDING = hyperparams['PADDING']
-
-i=1
 
 ##########################################################################################################
 configurations = []
@@ -815,6 +811,7 @@ if __name__ == "__main__":
                 seconds = round(delta_t % 60)
                 total_took = str(round(delta_t // 60)) + ':' + ('0' if seconds < 10 else '') + str(seconds)
                 log(f'Epoch {epoch} / {n_epochs} completed in {epoch_took} min, total {config_took} min')
+                print(f"Epoch {epoch} / {n_epochs} completed in {epoch_took} min, total {config_took} min")
                 log_to_main_logfile(f'Epoch {epoch}/{n_epochs} of config {config_idx+1}/{len(configurations)} completed in {epoch_took} min, config running for {config_took} min, script for {total_took} min')
 
                 if epoch % SHOW_RESULTS_EACH_N_EPOCHS == 0:
