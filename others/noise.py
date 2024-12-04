@@ -43,6 +43,7 @@ noise_sigma = 0.16
 input_files = []
 output_files = []
 
+# Add origin images path and noisy images path
 for subset, _, _ in os.walk(input_folder):
     if 'beam_ff' in subset or 'beam_nf' in subset:
         for filename in os.listdir(subset):
