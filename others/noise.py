@@ -1,5 +1,6 @@
 # adding gaussian noise to the image
 import os
+import shutil
 from concurrent.futures import ThreadPoolExecutor
 
 import cv2
@@ -7,9 +8,8 @@ import numpy as np
 
 
 def add_gaussian_noise(image_in, noise_sigma):
-    temp_image = np.float64(np.copy(image_in))
-    h = temp_image.shape[0]
-    w = temp_image.shape[1]
+    temp_image = image_in.astype(np.float64)
+    h, w = temp_image.shape[0], temp_image.shape[1]
     noise = np.random.randn(h, w) * noise_sigma
     noisy_image = np.zeros(temp_image.shape, np.float64)
     if len(temp_image.shape) == 2:
@@ -27,7 +27,7 @@ def add_gaussian_noise(image_in, noise_sigma):
 
 
 def process_image(file_path, output_path, noise_sigma):
-    img = cv2.imread(file_path)
+    img = cv2.imread(file_path, cv2.IMREAD_GRAYSCALE)
     noise_img = add_gaussian_noise(img, noise_sigma)
     cv2.imwrite(output_path, noise_img)
 
@@ -63,5 +63,10 @@ for dir1 in ['Dataset_Gausssian_Sinulated_Unwrapped', 'Dataset_Vortex_Simulated_
 with ThreadPoolExecutor() as executor:
     for input_file, output_file in zip(input_files, output_files):
         executor.submit(process_image, input_file, output_file, noise_sigma)
+
+# Copy 'phasemask' images
+for dirpath, _, _ in os.walk(input_folder):
+    if (dirpath.endswith('phasemask')):
+        shutil.copytree(dirpath, dirpath.replace('unwrapped_simulated', 'unwrapped_simulated_noise'))
 
 print("All images have been processed and saved.")
