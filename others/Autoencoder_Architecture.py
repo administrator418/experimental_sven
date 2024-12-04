@@ -695,7 +695,8 @@ def save_weights(epoch, autoencoder, delete_previous=False):
                     print('Failed to delete %s. Reason: %s' % (file_path, e))
         except:
             pass  
-    
+
+    os.makedirs(f'{path_to_store_results}/{timestamp}/checkpoints/autoencoder')
     autoencoder.save_weights(f'{path_to_store_results}/{timestamp}/checkpoints/autoencoder/epoch_{epoch}.weights.h5')
 
 #################################################################Training_Loop########################################################
