@@ -108,6 +108,20 @@ def log_to_main_logfile(message):
 
 def get_mask(image):
     # print(f"Image Shape  {tf.shape(image)}")
+    # """Method to get a mask to only use this area later in the ssim calculation"""
+    # dims = image.shape[:]
+    # print(dims)
+    # mask = np.zeros(dims, dtype=np.float32)
+    # center = (dims[2]//2, dims[1]//2)
+    # #print(center)
+    # radius = min(center)
+    # #print(radius)
+    # Y, X = np.ogrid[:dims[1], :dims[2]]
+    # dist_from_center = np.sqrt((X - center[0])**2 + (Y - center[1])**2)
+    # #print(radius, dist_from_center.shape)
+    # for i in range(len(mask)):
+    #     mask[i][dist_from_center <= radius] = 1.0
+
     """Method to get a mask to only use this area later in the ssim calculation"""
     dims = image.shape[:]
     # print(dims)
@@ -843,6 +857,8 @@ if __name__ == "__main__":
                 print(f"Epoch {epoch} / {n_epochs} completed in {epoch_took} min, total {config_took} min")
                 log_to_main_logfile(
                     f'Epoch {epoch}/{n_epochs} of config {config_idx + 1}/{len(configurations)} completed in {epoch_took} min, config running for {config_took} min, script for {total_took} min')
+                print(
+                    f'Epoch {epoch}/{n_epochs} of config {config_idx + 1}/{len(configurations)} completed in {epoch_took} min, config running for {config_took} min, script for {total_took} min')
 
                 if epoch % SHOW_RESULTS_EACH_N_EPOCHS == 0:
                     generate_images(epoch, autoencoder, val_dataset_to_plot)
@@ -857,13 +873,16 @@ if __name__ == "__main__":
                     history['l2_loss']['val'].append(l2_loss)
                     history['ssim']['val'].append(ssim_score)
                     log('\nCurrent performance:')
+                    print('\nCurrent performance:')
 
                     for metric in history:
                         if metric == 'epochs':
                             continue
                         for subset in ['train', 'val']:
                             log(metric + '_' + subset + ' = ' + str(history[metric][subset][-1]))
+                            print(metric + '_' + subset + ' = ' + str(history[metric][subset][-1]))
                     log('')
+                    print('')
 
                     # check for early stopping and save weights
                     if history['autoencoder_loss']['val'][-1] < best_val_loss:

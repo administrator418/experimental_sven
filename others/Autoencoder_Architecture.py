@@ -857,7 +857,8 @@ if __name__ == "__main__":
                 print(f"Epoch {epoch} / {n_epochs} completed in {epoch_took} min, total {config_took} min")
                 log_to_main_logfile(
                     f'Epoch {epoch}/{n_epochs} of config {config_idx + 1}/{len(configurations)} completed in {epoch_took} min, config running for {config_took} min, script for {total_took} min')
-
+                print(
+                    f'Epoch {epoch}/{n_epochs} of config {config_idx + 1}/{len(configurations)} completed in {epoch_took} min, config running for {config_took} min, script for {total_took} min')
                 if epoch % SHOW_RESULTS_EACH_N_EPOCHS == 0:
                     generate_images(epoch, autoencoder, val_dataset_to_plot)
 
@@ -871,13 +872,16 @@ if __name__ == "__main__":
                     history['l2_loss']['val'].append(l2_loss)
                     history['ssim']['val'].append(ssim_score)
                     log('\nCurrent performance:')
+                    print('\nCurrent performance:')
 
                     for metric in history:
                         if metric == 'epochs':
                             continue
                         for subset in ['train', 'val']:
                             log(metric + '_' + subset + ' = ' + str(history[metric][subset][-1]))
+                            print(metric + '_' + subset + ' = ' + str(history[metric][subset][-1]))
                     log('')
+                    print('')
 
                     # check for early stopping and save weights
                     if history['autoencoder_loss']['val'][-1] < best_val_loss:
