@@ -108,6 +108,20 @@ def log_to_main_logfile(message):
 
 def get_mask(image):
     # print(f"Image Shape  {tf.shape(image)}")
+    # """Method to get a mask to only use this area later in the ssim calculation"""
+    # dims = image.shape[:]
+    # print(dims)
+    # mask = np.zeros(dims, dtype=np.float32)
+    # center = (dims[2]//2, dims[1]//2)
+    # #print(center)
+    # radius = min(center)
+    # #print(radius)
+    # Y, X = np.ogrid[:dims[1], :dims[2]]
+    # dist_from_center = np.sqrt((X - center[0])**2 + (Y - center[1])**2)
+    # #print(radius, dist_from_center.shape)
+    # for i in range(len(mask)):
+    #     mask[i][dist_from_center <= radius] = 1.0
+
     """Method to get a mask to only use this area later in the ssim calculation"""
     dims = image.shape[:]
     # print(dims)
@@ -119,7 +133,7 @@ def get_mask(image):
     # print(radius, dist_from_center.shape)
     for i in range(len(mask)):
         mask[i][dist_from_center <= radius] = 1.0
-    if EVALUATION_METHOD == 0:
+    if EVALUATION_METHOD == 1:
         # Safe mask for debug:
         mask_path = f'{path_to_store_results}/{timestamp}/example_images/mask_.png'
         if not os.path.exists(mask_path):
