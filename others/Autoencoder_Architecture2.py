@@ -119,7 +119,7 @@ def get_mask(image):
     # print(radius, dist_from_center.shape)
     for i in range(len(mask)):
         mask[i][dist_from_center <= radius] = 1.0
-    if EVALUATION_METHOD == 0:
+    if EVALUATION_METHOD == 1:
         # Safe mask for debug:
         mask_path = f'{path_to_store_results}/{timestamp}/example_images/mask_.png'
         if not os.path.exists(mask_path):
