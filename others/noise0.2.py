@@ -6,9 +6,8 @@ import cv2
 import numpy as np
 
 
-def add_gaussian_noise(img1, img2, noise_sigma):
-    temp_image = img1.astype(np.float64)
-
+def add_gaussian_noise(image_in, noise_sigma):
+    temp_image = image_in.astype(np.float64)
     h, w = temp_image.shape[0], temp_image.shape[1]
     noise = np.random.randn(h, w) * noise_sigma
     noisy_image = np.zeros(temp_image.shape, np.float64)
@@ -18,6 +17,7 @@ def add_gaussian_noise(img1, img2, noise_sigma):
         noisy_image[:, :, 0] = temp_image[:, :, 0] + noise
         noisy_image[:, :, 1] = temp_image[:, :, 1] + noise
         noisy_image[:, :, 2] = temp_image[:, :, 2] + noise
+
     noisy_image = np.clip(noisy_image, 0, 255)  # 限制像素值范围
     noisy_image = noisy_image.astype(np.uint8)
 
@@ -32,8 +32,8 @@ def process(file_path, output_path, noise_sigma):
 
 # Folder with raw data
 input_folder = '/Users/jayden/Documents/Jikai_Wang/unwrapped_simulated'
-output_folder = '/Users/jayden/Documents/Jikai_Wang/unwrapped_simulated_noise'
-different = ['unwrapped_simulated', 'unwrapped_simulated_noise']
+output_folder = '/Users/jayden/Documents/Jikai_Wang/unwrapped_simulated_noise0.2'
+different = ['unwrapped_simulated', 'unwrapped_simulated_noise0.2']
 
 # Define the noise sigma
 noise_sigma = 0.16  # 0.14, 0.16, 0.18
@@ -45,12 +45,18 @@ for dir1 in ['Dataset_Gauss_Simulated_Unwrapped', 'Dataset_Vortex_Simulated_Unwr
             os.makedirs(f"{output_folder}/{dir1}/{dir2}/{dir3}", exist_ok=True)
 
 # Add origin images path and noisy images path
+num_img = 0
 input_paths, output_paths = [], []
 for subset, _, _ in os.walk(input_folder):
-    if 'beam_nf' in subset and 'train' not in subset:
+    if 'beam_nf' in subset and 'test' in subset:
         for filename in os.listdir(subset):
             input_paths.append(os.path.join(subset, filename))
             output_paths.append(os.path.join(subset.replace(different[0], different[1]), filename))
+            input_paths.append(os.path.join(subset.replace('beam_nf', 'beam_ff'), filename))
+            output_paths.append(os.path.join(subset.replace('beam_nf', 'beam_ff').replace(different[0], different[1]), filename))
+            num_img += 2
+            if num_img >= 1000:
+                break
 
 # Create a ThreadPoolExecutor to process images in parallel
 with ThreadPoolExecutor() as executor:

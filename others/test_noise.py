@@ -25,7 +25,7 @@ file_noise = '/Users/jayden/Documents/Jikai_Wang/unwrapped_simulated_noise/Datas
 img = cv2.imread(file, cv2.IMREAD_GRAYSCALE)
 img_noise1 = cv2.imread(file_noise, cv2.IMREAD_GRAYSCALE)
 
-img_noise = add_gaussian_noise(img, 0.16)
+img_noise = add_gaussian_noise(img, 0.2)
 
 img_noise2 = np.clip(img_noise, 0, 255)  # 限制像素值范围
 img_noise2_1 = img_noise2.astype(np.uint8)
