@@ -10,7 +10,7 @@ import cv2
 from matplotlib import pyplot as plt
 import yaml
 
-DATASET_PATH = r'/content/unwrapped_simulated_noise/Dataset_Gauss_Simulated_Unwrapped'
+DATASET_PATH = '/content/unwrapped_simulated_noise/Dataset_Gauss_Simulated_Unwrapped'
 
 ###################################################### Do not touch #############################################################################
 PATH_TO_STORE_RESULTS = '/content/experimental_sven/others/results_hyperparameter_optimization'
