@@ -12,3 +12,4 @@ plt.plot(l2_loss_val, label='validation')
 plt.grid(True)
 plt.legend()
 plt.show()
+
