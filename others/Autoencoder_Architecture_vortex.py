@@ -10,11 +10,10 @@ import cv2
 from matplotlib import pyplot as plt
 import yaml
 
-DATASET_PATH = r'/content/vortex_0.16_0.16'
+DATASET_PATH = '/content/unwrapped_simulated'
 
 ###################################################### Do not touch #############################################################################
 PATH_TO_STORE_RESULTS = '/content/experimental_sven/others/results_hyperparameter_optimization'
-PATH_TO_STORE_RESULTS_PREDICT = '/content/experimental_sven/others/predict'
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # "0" for using GPU:0, "1" for GPU:1, "0,1" for both
 
 
