@@ -8,7 +8,7 @@ SKIP_FIRST_N_CONFIGS: 0
 ORIGINAL_PHASEMASK_SIZE: [512,512]
 
 # Settings
-MODUS: 1 # [0:train | 1:predict]
+MODUS: 0 # [0:train | 1:predict]
 EVALUATION_METHOD: 1  # ['normal' =0; 'specific'=1]
 BEST_CONFIGURATION_ONLY: True
 BEST_CONFIGURATION: 22
@@ -18,6 +18,6 @@ IMAGE_SIZE: [512,512] # Model 3
 #IMAGE_SIZE: [64,64] #Model 4
 
 # Hyperparameters
-N_EPOCHS: 0
+N_EPOCHS: 1
 STRIDES: 2  # From 2 to 1
 PADDING: 'same' # original[same]
