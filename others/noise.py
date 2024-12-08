@@ -6,8 +6,9 @@ import cv2
 import numpy as np
 
 
-def add_gaussian_noise(image_in, noise_sigma):
-    temp_image = image_in.astype(np.float64)
+def add_gaussian_noise(img1, img2, noise_sigma):
+    temp_image = img1.astype(np.float64)
+
     h, w = temp_image.shape[0], temp_image.shape[1]
     noise = np.random.randn(h, w) * noise_sigma
     noisy_image = np.zeros(temp_image.shape, np.float64)
@@ -20,10 +21,10 @@ def add_gaussian_noise(image_in, noise_sigma):
     noisy_image = np.clip(noisy_image, 0, 255)  # 限制像素值范围
     noisy_image = noisy_image.astype(np.uint8)
 
-    return noisy_image
+    return processed_image1, processed_img2
 
 
-def process_image(file_path, output_path, noise_sigma):
+def process(file_path, output_path, noise_sigma):
     img = cv2.imread(file_path, cv2.IMREAD_GRAYSCALE)
     noise_img = add_gaussian_noise(img, noise_sigma)
     cv2.imwrite(output_path, noise_img)
@@ -39,22 +40,21 @@ noise_sigma = 0.16  # 0.14, 0.16, 0.18
 
 # Make directories
 for dir1 in ['Dataset_Gauss_Simulated_Unwrapped', 'Dataset_Vortex_Simulated_Unwrapped']:
-    for dir2 in ['train', 'val', 'test']:
+    for dir2 in ['val', 'test']:
         for dir3 in ['beam_ff', 'beam_nf']:
             os.makedirs(f"{output_folder}/{dir1}/{dir2}/{dir3}", exist_ok=True)
 
 # Add origin images path and noisy images path
-input_files = []
-output_files = []
+input_paths, output_paths = [], []
 for subset, _, _ in os.walk(input_folder):
-    if ('beam_ff' in subset or 'beam_nf' in subset) and ('train' not in subset):
+    if 'beam_nf' in subset and 'train' not in subset:
         for filename in os.listdir(subset):
-            input_files.append(os.path.join(subset, filename))
-            output_files.append(os.path.join(subset.replace(different[0], different[1]), filename))
+            input_paths.append(os.path.join(subset, filename))
+            output_paths.append(os.path.join(subset.replace(different[0], different[1]), filename))
 
 # Create a ThreadPoolExecutor to process images in parallel
 with ThreadPoolExecutor() as executor:
-    for input_file, output_file in zip(input_files, output_files):
-        executor.submit(process_image, input_file, output_file, noise_sigma)
+    for input_path, output_path in zip(input_paths, output_paths):
+        executor.submit(process, input_path, output_path, noise_sigma)
 
 print("All images have been processed and saved.")
