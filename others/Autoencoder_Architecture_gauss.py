@@ -883,16 +883,16 @@ if __name__ == "__main__":
                     log('')
                     print('')
 
-                    # check for early stopping and save weights
-                    if history['autoencoder_loss']['val'][-1] < best_val_loss:
-                        best_val_loss = history['autoencoder_loss']['val'][-1]
-                        consecutive_epochs_without_improvements = 0
-                        # save_weights(epoch, autoencoder, delete_previous=True)
-                    else:
-                        consecutive_epochs_without_improvements += EVALUATE_EACH_N_EPOCHS
-                        if consecutive_epochs_without_improvements >= N_EPOCHS_WITHOUT_IMPROVEMENT_FOR_EARLY_STOPPING:
-                            break
-
+            #         # check for early stopping and save weights
+            #         if history['autoencoder_loss']['val'][-1] < best_val_loss:
+            #             best_val_loss = history['autoencoder_loss']['val'][-1]
+            #             consecutive_epochs_without_improvements = 0
+            #             save_weights(epoch, autoencoder, delete_previous=True)
+            #         else:
+            #             consecutive_epochs_without_improvements += EVALUATE_EACH_N_EPOCHS
+            #             if consecutive_epochs_without_improvements >= N_EPOCHS_WITHOUT_IMPROVEMENT_FOR_EARLY_STOPPING:
+            #                 break
+            #
             # save_weights(epoch, autoencoder, delete_previous=False)
 
             return history
