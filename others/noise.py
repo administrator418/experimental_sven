@@ -1,6 +1,5 @@
 # adding gaussian noise to the image
 import os
-import shutil
 from concurrent.futures import ThreadPoolExecutor
 
 import cv2
@@ -18,11 +17,9 @@ def add_gaussian_noise(image_in, noise_sigma):
         noisy_image[:, :, 0] = temp_image[:, :, 0] + noise
         noisy_image[:, :, 1] = temp_image[:, :, 1] + noise
         noisy_image[:, :, 2] = temp_image[:, :, 2] + noise
-    """
-    Debugging
-    print('min,max = ', np.min(noisy_image), np.max(noisy_image))
-    print('type = ', type(noisy_image[0][0][0]))
-    """
+    noisy_image = np.clip(noisy_image, 0, 255)  # 限制像素值范围
+    noisy_image = noisy_image.astype(np.uint8)
+
     return noisy_image
 
 
@@ -38,11 +35,7 @@ output_folder = '/Users/jayden/Documents/Jikai_Wang/unwrapped_simulated_noise'
 different = ['unwrapped_simulated', 'unwrapped_simulated_noise']
 
 # Define the noise sigma
-""" Labor sigma = 0.14
-    Test_1 sigma = 0.16
-    Test_2 sigma = 0.18
-    """
-noise_sigma = 0.16
+noise_sigma = 0.16  # 0.14, 0.16, 0.18
 
 # Make directories
 for dir1 in ['Dataset_Gauss_Simulated_Unwrapped', 'Dataset_Vortex_Simulated_Unwrapped']:
@@ -54,7 +47,7 @@ for dir1 in ['Dataset_Gauss_Simulated_Unwrapped', 'Dataset_Vortex_Simulated_Unwr
 input_files = []
 output_files = []
 for subset, _, _ in os.walk(input_folder):
-    if 'beam_ff' in subset or 'beam_nf' in subset:
+    if ('beam_ff' in subset or 'beam_nf' in subset) and ('train' not in subset):
         for filename in os.listdir(subset):
             input_files.append(os.path.join(subset, filename))
             output_files.append(os.path.join(subset.replace(different[0], different[1]), filename))
