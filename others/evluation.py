@@ -10,7 +10,7 @@ import cv2
 from matplotlib import pyplot as plt
 import yaml
 
-DATASET_PATH = '/content/unwrapped_simulated/Dataset_Gauss_Simulated_Unwrapped'
+DATASET_PATH = '/content/unwrapped_simulated_noise0.2_test/Dataset_Gauss_Simulated_Unwrapped'
 # DATASET_PATH = '/content/unwrapped_simulated/Dataset_Vortex_Simulated_Unwrapped'
 
 ###################################################### Do not touch #############################################################################
