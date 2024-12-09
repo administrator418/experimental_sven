@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 import yaml
 
 # DATASET_PATH = '/content/unwrapped_simulated/Dataset_Gauss_Simulated_Unwrapped'
-DATASET_PATH = '/content/unwrapped_simulated_noise0.2_test/Dataset_Vortex_Simulated_Unwrapped'
+DATASET_PATH = '/content/unwrapped_simulated/Dataset_Vortex_Simulated_Unwrapped'
 
 ###################################################### Do not touch #############################################################################
 PATH_TO_STORE_RESULTS = '/content/experimental_sven/others/results_hyperparameter_optimization'
