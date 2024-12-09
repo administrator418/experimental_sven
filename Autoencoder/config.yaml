@@ -8,7 +8,7 @@ SKIP_FIRST_N_CONFIGS: 0
 ORIGINAL_PHASEMASK_SIZE: [512,512]
 
 # Settings
-MODUS: 1 # [0:train | 1:predict]
+MODUS: 0 # [0:train | 1:predict]
 EVALUATION_METHOD: 1  # ['normal' =0; 'specific'=1]
 BEST_CONFIGURATION_ONLY: True
 BEST_CONFIGURATION: 22
