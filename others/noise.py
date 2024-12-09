@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 
 
-def add_gaussian_noise(img1, img2, noise_sigma):
+def add_gaussian_noise(img1, noise_sigma):
     temp_image = img1.astype(np.float64)
 
     h, w = temp_image.shape[0], temp_image.shape[1]

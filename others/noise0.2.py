@@ -4,6 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 import cv2
 import numpy as np
+from tqdm import tqdm
 
 
 def add_gaussian_noise(image_in, noise_sigma):
@@ -36,16 +37,15 @@ output_folder = '/Users/jayden/Documents/Jikai_Wang/unwrapped_simulated_noise0.2
 different = ['unwrapped_simulated', 'unwrapped_simulated_noise0.2']
 
 # Define the noise sigma
-noise_sigma = 0.16  # 0.14, 0.16, 0.18
+noise_sigma = 0.20  # 0.14, 0.16, 0.18
 
 # Make directories
 for dir1 in ['Dataset_Gauss_Simulated_Unwrapped', 'Dataset_Vortex_Simulated_Unwrapped']:
-    for dir2 in ['val', 'test']:
+    for dir2 in ['test']:
         for dir3 in ['beam_ff', 'beam_nf']:
             os.makedirs(f"{output_folder}/{dir1}/{dir2}/{dir3}", exist_ok=True)
 
 # Add origin images path and noisy images path
-num_img = 0
 input_paths, output_paths = [], []
 for subset, _, _ in os.walk(input_folder):
     if 'beam_nf' in subset and 'test' in subset:
@@ -54,13 +54,15 @@ for subset, _, _ in os.walk(input_folder):
             output_paths.append(os.path.join(subset.replace(different[0], different[1]), filename))
             input_paths.append(os.path.join(subset.replace('beam_nf', 'beam_ff'), filename))
             output_paths.append(os.path.join(subset.replace('beam_nf', 'beam_ff').replace(different[0], different[1]), filename))
-            num_img += 2
-            if num_img >= 1000:
-                break
 
 # Create a ThreadPoolExecutor to process images in parallel
 with ThreadPoolExecutor() as executor:
+    futures = []
     for input_path, output_path in zip(input_paths, output_paths):
-        executor.submit(process, input_path, output_path, noise_sigma)
+        future = executor.submit(process, input_path, output_path, noise_sigma)
+        futures.append(future)
+
+    for future in tqdm(futures, desc="Processing", total=len(futures)):
+        future.result()
 
 print("All images have been processed and saved.")
