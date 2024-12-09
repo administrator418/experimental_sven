@@ -924,14 +924,14 @@ if __name__ == "__main__":
                 print(f'final {subset} {metric} = {eval(metric)}')
                 final_test_performance[metric] = eval(metric)
             generate_images('final-performance', autoencoder, dataset[subset].take(configuration['BATCHES_TO_PLOT']))
-        # # Training=false
-        # for subset in ['test']:
-        #     autoencoder_loss, l1_loss, l2_loss, ssim_score = evaluate(autoencoder, dataset[subset], configuration)
-        #     for metric in ['autoencoder_loss', 'l1_loss', 'l2_loss', 'ssim_score']:
-        #         log(f'final {subset} {metric} = {eval(metric)}')
-        #         final_test_performance_without_dropout[metric] = eval(metric)
-        #     generate_images('final-performance_without_dropout', autoencoder,
-        #                     dataset[subset].take(configuration['BATCHES_TO_PLOT']))
+        # Training=false
+        for subset in ['test']:
+            autoencoder_loss, l1_loss, l2_loss, ssim_score = evaluate(autoencoder, dataset[subset], configuration)
+            for metric in ['autoencoder_loss', 'l1_loss', 'l2_loss', 'ssim_score']:
+                log(f'final {subset} {metric} = {eval(metric)}')
+                final_test_performance_without_dropout[metric] = eval(metric)
+            generate_images('final-performance_without_dropout', autoencoder,
+                            dataset[subset].take(configuration['BATCHES_TO_PLOT']))
 
         # ### GENERATE PLOTS SHOWING TRAINING HISTORY
         #
