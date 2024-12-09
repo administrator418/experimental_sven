@@ -921,6 +921,7 @@ if __name__ == "__main__":
             autoencoder_loss, l1_loss, l2_loss, ssim_score = evaluate(autoencoder, dataset[subset], configuration)
             for metric in ['autoencoder_loss', 'l1_loss', 'l2_loss', 'ssim_score']:
                 log(f'final {subset} {metric} = {eval(metric)}')
+                print(f'final {subset} {metric} = {eval(metric)}')
                 final_test_performance[metric] = eval(metric)
             generate_images('final-performance', autoencoder, dataset[subset].take(configuration['BATCHES_TO_PLOT']))
         # Training=false
